@@ -1,0 +1,17 @@
+---
+kind: StorageClass
+apiVersion: storage.k8s.io/v1
+metadata:
+  name: {{ template "app.fullname" . }}-storageclass
+  labels:
+    app: {{ template "app.name" . }}
+    chart: {{ template "app.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+provisioner: {{ .Values.storageClass.provisioner }}
+parameters:
+{{ .Values.storageClass.parameters | toYaml | indent 2 }}
+allowVolumeExpansion: true
+volumeBindingMode: Immediate
+reclaimPolicy: Retain
+...

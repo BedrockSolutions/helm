@@ -1,0 +1,171 @@
+---
+# Set to the cloud provider. Currently, only 'gcp' is supported.
+cloudProvider: gcp
+
+# Factomd-specific configuration
+factomd:
+
+  # A dict of arguments passed to the factomd executable.
+  #
+  # Valid keys are:
+  #
+  #   customNet <-- testnet only
+  #   faultTimeout
+  #   startDelay
+  args: {}
+
+  # A dict of configuration file parameters.
+  #
+  # Valid keys are:
+  #
+  #   apiPort
+  #   bootstrapIdentity <-- testnet only
+  #   bootstrapKey <-- testnet only
+  #   changeAcksHeight
+  #   controlPanelPort
+  #   controlPanelPortSetting
+  #   directoryBlockInSeconds
+  #   exchangeRateAuthorityPublicKey
+  #   identityChainID
+  #   localServerPublicKey
+  #   network
+  #   p2pPort
+  #   seedUrl
+  #   specialPeers
+  config: {}
+
+  # Docker container-related configuration
+  container:
+
+    # Docker image
+    image: bedrocksolutions/factomd
+
+    # Docker image tag
+    imageTag: latest
+
+    # Container resource limits and requests
+    resources:
+      limits:
+        cpu: 1000m
+        memory: 4Gi
+      requests:
+        cpu: 500m
+        memory: 2Gi
+
+  # Database-related configuration
+  database:
+
+    # The size of the persistent disk resource
+    diskSize: 20Gi
+
+    # The type of the persistent disk. Value is 'standard' or 'ssd'
+    diskType: ssd
+
+  # Enable if server is currently an authority server
+  isAuthority: false
+
+  # The Factom network to join. Either 'mainnet' or 'testnet'
+  network: mainnet
+
+  # Port-related configuration
+  ports:
+
+    api:
+      # Set the load balancer type. Allowed values are 'http', 'tcp', and 'none'
+      loadBalancerType: none
+
+      # Enable to create an internal load balancer
+      # Only works with "loadBalancerType: tcp"
+      isInternal: false
+
+    cpanel:
+      # Set the load balancer type. Allowed values are 'http', 'tcp', and 'none'
+      loadBalancerType: none
+
+      # Enable to create an internal load balancer
+      # Only works with "loadBalancerType: tcp"
+      isInternal: false
+
+  # Private variable containing argument-related configuration.
+  # No touchy...
+  _args:
+    defaults:
+      global:
+        faultTimeout: 120
+        startDelay: 600
+      mainnet: {}
+      testnet:
+        customNet: fct_community_test
+
+    names:
+      global:
+        faultTimeout: faulttimeout
+        startDelay: startdelay
+      mainnet: {}
+      testnet:
+        customNet: customnet
+
+  # Private variable containing factomd.conf-related configuration.
+  # Hands off...
+  _config:
+    defaults:
+      global:
+        apiPort: 8088
+        changeAcksHeight: 0
+        controlPanelPort: 8090
+        controlPanelSetting: readonly
+        identityChainID: FA1E000000000000000000000000000000000000000000000000000000000000
+        localServerPrivateKey: "${LOCAL_SERVER_PRIVATE_KEY}"
+      mainnet:
+        p2pPort: 8108
+        specialPeers: "\"52.17.183.121:8108 52.17.153.126:8108 52.19.117.149:8108 52.18.72.212:8108\""
+        network: MAIN
+      testnet:
+        bootstrapIdentity: 8888882f5002ff95fce15d20ecb7e18ae6cc4d5849b372985d856b56e492ae0f
+        bootstrapKey: 58cfccaa48a101742845df3cecde6a9f38037030842d34d0eaa76867904705ae
+        directoryBlockInSeconds: 600
+        exchangeRateAuthorityPublicKey: 58cfccaa48a101742845df3cecde6a9f38037030842d34d0eaa76867904705ae
+        network: CUSTOM
+        p2pPort: 8110
+        seedUrl: https://raw.githubusercontent.com/FactomProject/communitytestnet/master/seeds/testnetseeds.txt
+
+    names:
+      global:
+        apiPort: PortNumber
+        changeAcksHeight: ChangeAcksHeight
+        controlPanelPort: ControlPanelPort
+        controlPanelSetting: ControlPanelSetting
+        directoryBlockInSeconds: DirectoryBlockInSeconds
+        exchangeRateAuthorityPublicKey: ExchangeRateAuthorityPublicKey
+        identityChainID: IdentityChainID
+        localServerPrivateKey: LocalServerPrivKey
+        localServerPublicKey: LocalServerPublicKey
+        network: Network
+      mainnet:
+        p2pPort: MainNetworkPort
+        seedUrl: MainSeedURL
+        specialPeers: MainSpecialPeers
+      testnet:
+        bootstrapIdentity: CustomBootstrapIdentity
+        bootstrapKey: CustomBootstrapKey
+        p2pPort: CustomNetworkPort
+        seedUrl: CustomSeedURL
+        specialPeers: CustomSpecialPeers
+
+# Prometheus to Stackdriver bridge configuration
+prometheusToSD:
+
+  container:
+
+    # Container resource limits and requests
+    resources:
+      limits:
+        cpu: 50m
+        memory: 50Mi
+      requests:
+        cpu: 25m
+        memory: 25Mi
+
+statefulSet:
+  replicas: 1
+...

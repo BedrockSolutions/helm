@@ -1,0 +1,48 @@
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    app: {{ template "app.name" . }}
+    chart: {{ template "app.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+  name: {{ template "app.fullname" . }}
+spec:
+  replicas: {{ .Values.deployment.replicas }}
+  selector:
+    matchLabels:
+      app: {{ template "app.name" . }}
+  template:
+    metadata:
+      labels:
+        app: {{ template "app.name" . }}
+    spec:
+      containers:
+        - name: {{ template "app.name" . }}
+          env:
+            - name: BOTURL
+              value: {{ .Values.tfaBot.botUrl | quote }}
+          {{- with .Values.container}}
+          image: {{ .image }}:{{ .imageTag }}
+          imagePullPolicy: {{ .pullPolicy }}
+          livenessProbe:
+            exec:
+              command:
+                - pgrep
+                - mono
+              initialDelaySeconds: 60
+              timeoutSeconds: 5
+          readinessProbe:
+            exec:
+              command:
+                - pgrep
+                - mono
+              initialDelaySeconds: 5
+              timeoutSeconds: 5
+          resources:
+{{ .resources | toYaml | indent 12 }}
+          {{- end}}
+      restartPolicy: {{ .Values.deployment.restartPolicy }}
+      terminationGracePeriodSeconds: 5
+...

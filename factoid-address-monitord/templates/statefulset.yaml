@@ -1,0 +1,95 @@
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: {{ template "app.fullname" . }}
+  labels:
+    app: {{ template "app.name" . }}
+    chart: {{ template "app.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  replicas: {{ .Values.statefulSet.replicas }}
+  selector:
+    matchLabels:
+      app: {{ template "app.name" . }}
+  template:
+    metadata:
+      labels:
+        app: {{ template "app.name" . }}
+        chart: {{ template "app.chart" . }}
+        release: {{ .Release.Name }}
+        heritage: {{ .Release.Service }}
+    spec:
+      containers:
+        - name: {{ template "app.fullname" . }}
+        {{- with .Values.container }}
+          env:
+            - name: BITCOIN_TAX_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .env.bitcoinTaxSecretName }}
+                  key: bitcoinTaxSecret
+          image: {{ .image }}:{{ .imageTag }}
+          imagePullPolicy: {{ .pullPolicy }}
+          livenessProbe:
+            exec:
+              command:
+                - pgrep
+                - node
+              initialDelaySeconds: 60
+              timeoutSeconds: 5
+          readinessProbe:
+            exec:
+              command:
+                - pgrep
+                - node
+              initialDelaySeconds: 5
+              timeoutSeconds: 5
+          resources:
+{{ .resources | toYaml | indent 12 }}
+          volumeMounts:
+            - name: config-volume
+              mountPath: {{ .volumes.config.mountPath }}
+            - name: csv-volume
+              mountPath: {{ .volumes.csv.mountPath }}
+            - name: db-volume
+              mountPath: {{ .volumes.db.mountPath }}
+        {{- end }}
+      restartPolicy: {{ .Values.statefulSet.restartPolicy }}
+      securityContext:
+        fsGroup: 1000
+      volumes:
+        - name: config-volume
+          configMap:
+            name: {{ template "app.fullname" . }}-configmap
+  volumeClaimTemplates:
+    - metadata:
+        name: csv-volume
+        labels:
+          app: {{ template "app.name" . }}
+          chart: {{ template "app.chart" . }}
+          release: {{ .Release.Name }}
+          heritage: {{ .Release.Service }}
+      spec:
+        accessModes:
+          - ReadWriteOnce
+        resources:
+          requests:
+            storage: {{ .Values.persistentVolumeClaim.initialSize }}
+        storageClassName: {{ template "app.fullname" . }}-storageclass
+    - metadata:
+        name: db-volume
+        labels:
+          app: {{ template "app.name" . }}
+          chart: {{ template "app.chart" . }}
+          release: {{ .Release.Name }}
+          heritage: {{ .Release.Service }}
+      spec:
+        accessModes:
+          - ReadWriteOnce
+        resources:
+          requests:
+            storage: {{ .Values.persistentVolumeClaim.initialSize }}
+        storageClassName: {{ template "app.fullname" . }}-storageclass
+...

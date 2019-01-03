@@ -1,0 +1,11 @@
+---
+apiVersion: v1
+name: factom-walletd
+home: https://github.com/FactomProject/factom-walletd
+version: 0.0.1
+description: factom-walletd helm chart
+sources:
+  - https://github.com/BedrockSolutions/helm
+maintainers:
+  - name: Bedrock Solutions
+    email: info@bedrocksolutions.io

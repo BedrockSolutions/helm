@@ -1,0 +1,51 @@
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    app: {{ template "app.name" . }}
+    chart: {{ template "app.chart" .}}
+    heritage: {{ .Release.Service }}
+    release: {{ .Release.Name }}
+  name: "{{ .Release.Name }}"
+spec:
+  replicas: {{ .Values.replicas }}
+  selector:
+    matchLabels:
+      app: {{ template "app.name" . }}
+  template:
+    metadata:
+      labels:
+        app: {{ template "app.name" . }}
+    spec:
+      containers:
+      - name: {{ template "app.name" . }}
+      {{- with .Values.container }}
+        image: {{ .image }}:{{ .imagetag }}
+        ports:
+        - containerPort: 8089
+          name: factom-walletd
+          protocol: TCP
+        livenessProbe:
+          tcpSocket:
+            port: factom-walletd
+            initialDelaySeconds: 120
+            periodSeconds: 30
+            timeoutSeconds: 5
+        readinessProbe:
+          tcpSocket:
+            port: factom-walletd
+            initialDelaySeconds: 100
+            periodSeconds: 30
+            timeoutSeconds: 5
+        resources:
+          {{- with .resources}}
+          limits:
+            cpu: {{.cpu}}
+            memory: {{.memory}}
+          requests:
+            cpu: {{.cpu}}
+            memory: {{.memory}}
+          {{- end}}
+      {{- end}}
+...

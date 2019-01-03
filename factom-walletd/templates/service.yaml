@@ -1,0 +1,26 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    cloud.google.com/load-balancer-type: "Internal"
+  labels:
+    app: "{{.Release.Name}}"
+    chart: "{{$.Chart.Name}}-{{$.Chart.Version}}"
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+  name: "{{.Release.Name}}"
+spec:
+  ports:
+  - name: http
+    port: 80
+    protocol: TCP
+    targetPort: http
+  - name: https
+    port: 443
+    protocol: TCP
+    targetPort: https
+  selector:
+    app: "{{.Release.Name}}"
+  type: LoadBalancer
+...

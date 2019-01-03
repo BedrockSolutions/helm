@@ -1,0 +1,22 @@
+---
+container:
+  image: bedrocksolutions/tfa-bot
+  imageTag: latest
+  pullPolicy: always
+  resources:
+    requests:
+      memory: 96Mi
+      cpu: 50m
+    limits:
+      memory: 256Mi
+      cpu: 100m
+
+deployment:
+  replicas: 1
+  restartPolicy: Always
+
+# This is the only value that must be overridden
+tfaBot: {
+#  botUrl: https://url.to.google.sheet.conf
+}
+...

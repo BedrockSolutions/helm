@@ -1,0 +1,10 @@
+---
+container:
+  image: gcr.io/mainnet-v1/factom-walletd
+  imagetag: 2.2.14
+  resources:
+    cpu: 500m
+    memory: 1G
+
+replicas: 1
+...

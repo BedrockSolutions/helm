@@ -1,0 +1,19 @@
+{{- if eq .Values.factomd.ports.cpanel.loadBalancerType "http" -}}
+{{- range $replica := until (.Values.statefulSet.replicas | int) -}}
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: {{ include "app.fullname" $ }}-cpanel-ing-{{ $replica }}
+  labels:
+    app: {{ include "app.name" $ }}
+    chart: {{ include "app.chart" $ }}
+    release: {{ $.Release.Name }}
+    heritage: {{ $.Release.Service }}
+spec:
+  backend:
+    serviceName: {{ include "app.fullname" $ }}-cpanel-svc-{{ $replica }}
+    servicePort: {{ include "factomd.configValue" (dict "factomd" $.Values.factomd "key" "controlPanelPort") }}
+...
+{{ end -}}
+{{- end -}}
