@@ -41,7 +41,7 @@ spec:
               name: {{ .Release.Name }}-secret
               key: localServerPrivateKey
 {{- end }}
-        image: {{ .Values.factomd.container.image }}:{{ .Values.factomd.container.imageTag }}
+        image: {{ .Values.factomd.image }}:{{ .Values.factomd.imageTag }}
         livenessProbe:
           exec:
             command:
@@ -70,7 +70,7 @@ spec:
             initialDelaySeconds: 5
             timeoutSeconds: 5
         resources:
-{{ toYaml .Values.factomd.container.resources | indent 10 }}
+{{ toYaml .Values.factomd.resources | indent 10 }}
         volumeMounts:
         - name: factomd-config
           mountPath: /home/factomd/.factom/private
@@ -95,7 +95,7 @@ spec:
                 fieldPath: metadata.namespace
         image: gcr.io/google-containers/prometheus-to-sd:v0.3.2
         resources:
-{{ toYaml .Values.prometheusToSD.container.resources | indent 10 }}
+{{ toYaml .Values.prometheusToSD.resources | indent 10 }}
 {{- end }}
       securityContext:
         fsGroup: 1000

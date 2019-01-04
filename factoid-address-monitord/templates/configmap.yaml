@@ -10,12 +10,12 @@ metadata:
     heritage: {{ .Release.Service }}
 data:
   config.json: |-
+    {{- with .Values.factoidAddressMonitord.config }}
     {
       "factomdConfig": {
-        "host": "{{ .Values.factomd.host }}",
-        "port": {{ .Values.factomd.port }}
+        "host": "{{ .factomdHost }}",
+        "port": {{ .factomdPort }}
       },
-      {{- with .Values.factoidAddressMonitord }}
       "addresses": [{
         "address": "{{ .address }}",
         "bitcoinTaxKey": "{{ .bitcoinTaxKey }}",

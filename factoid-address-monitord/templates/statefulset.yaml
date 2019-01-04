@@ -23,7 +23,7 @@ spec:
     spec:
       containers:
         - name: {{ template "app.fullname" . }}
-        {{- with .Values.container }}
+        {{- with .Values.factoidAddressMonitord }}
           env:
             - name: BITCOIN_TAX_SECRET
               valueFrom:
@@ -76,7 +76,7 @@ spec:
           - ReadWriteOnce
         resources:
           requests:
-            storage: {{ .Values.persistentVolumeClaim.initialSize }}
+            storage: {{ .Values.persistentVolumeClaim.size }}
         storageClassName: {{ template "app.fullname" . }}-storageclass
     - metadata:
         name: db-volume
@@ -90,6 +90,6 @@ spec:
           - ReadWriteOnce
         resources:
           requests:
-            storage: {{ .Values.persistentVolumeClaim.initialSize }}
+            storage: {{ .Values.persistentVolumeClaim.size }}
         storageClassName: {{ template "app.fullname" . }}-storageclass
 ...

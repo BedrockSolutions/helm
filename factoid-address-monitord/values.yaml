@@ -1,27 +1,40 @@
----
 factoidAddressMonitord:
-#  address:
-#  bitcoinTaxKey:
-#  bitcoinTaxSecret:
-  currency: USD
-#  nickname:
-  recordCoinbaseReceipts: true
-  recordNonCoinbaseReceipts: false
-  saveToBitcoinTax: false
-  saveToCsv: true
+  # A dict of configuration file parameters.
+  #  address:
+  #  bitcoinTaxKey:
+  #  bitcoinTaxSecret:
+  #  nickname:
+  config:
+    currency: USD
+    factomdHost: localhost
+    factomdPort: 8088
+    recordCoinbaseReceipts: true
+    recordNonCoinbaseReceipts: false
+    saveToBitcoinTax: false
+    saveToCsv: true
 
-container:
   env:
     bitcoinTaxSecretName: factoid-address-monitord-secret
+
+  # Docker image repository
   image: bedrocksolutions/factoid-address-monitord
+
+  # Docker image tag
   imageTag: latest
+
+  # Docker image pull policy
   pullPolicy: Always
+
+  # Container resource limits and requests
   resources:
-    requests:
-      memory: 96Mi
-      cpu: 50m
     limits:
+      cpu: 100m
       memory: 256Mi
+    requests:
+      cpu: 50m
+      memory: 96Mi
+
+  # Volume mount paths
   volumes:
     config:
       mountPath: /home/node/app/conf-template
@@ -29,22 +42,18 @@ container:
       mountPath: /home/node/app/csv
     db:
       mountPath: /home/node/app/db
-    cpu: 100m
-
-factomd:
-  host: localhost
-  port: 8088
 
 persistentVolumeClaim:
-  initialSize: 10Gi
+  # Persistent Volume disk size
+  size: 10Gi
 
 statefulSet:
   replicas: 1
   restartPolicy: Always
 
+# https://kubernetes.io/docs/concepts/storage/storage-classes/
 storageClass:
   parameters:
     type: pd-standard
     replication-type: regional-pd
   provisioner: kubernetes.io/gce-pd
-...
