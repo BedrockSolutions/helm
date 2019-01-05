@@ -1,10 +1,18 @@
----
-container:
-  image: gcr.io/mainnet-v1/factom-walletd
-  imagetag: 2.2.14
-  resources:
-    cpu: 500m
-    memory: 1G
+factomWalletd:
+  # Docker image repository
+  image: bedrocksolutions/factom-walletd
 
-replicas: 1
-...
+  # Docker image tag
+  imageTag: latest
+
+  # Container resource limits and requests
+  resources:
+    limits:
+      cpu: 500m
+      memory: 1Gi
+    requests:
+      cpu: 500m
+      memory: 1Gi
+
+deployment:
+  replicas: 1
