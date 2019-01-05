@@ -42,28 +42,28 @@ The command removes all the Kubernetes components associated with the chart and 
 
 The following table lists the configurable parameters of the factoid-address-monitord chart and their default values.
 
-| Parameter                                          | Description                                                                  | Default                                   |
-| -------------------------------------------------- | ---------------------------------------------------------------------------- | ----------------------------------------- |
-| `factoidAddressMonitord.config`                    | [configurations](#configuration) to the factoid-address-monitord config file | `{}`                                      |
-| `factoidAddressMonitord.env.bitcoinTaxSecretName`  |                                                                              |                                           |
-| `factoidAddressMonitord.image`                     | factoid-address-monitord container image repository                          | `bedrocksolutions/factoidAddressMonitord` |
-| `factoidAddressMonitord.imageTag`                  | factoid-address-monitord container image tag                                 | `latest`                                  |
-| `factoidAddressMonitord.pullPolicy`                | factoid-address-monitord container image pull policy                         | `Always`                                  |
-| `factoidAddressMonitord.resources.limits.cpu`      | factoid-address-monitord pod cpu limit                                       | `100m`                                    |
-| `factoidAddressMonitord.resources.limits.memory`   | factoid-address-monitord pod memory limit                                    | `256Mi`                                   |
-| `factoidAddressMonitord.resources.requests.cpu`    | factoid-address-monitord pod cpu request                                     | `50m`                                     |
-| `factoidAddressMonitord.resources.requests.memory` | factoid-address-monitord pod memory request                                  | `96Mi`                                    |
-| `factoidAddressMonitord.volumes.config.mountPath`  | config volume mount path                                                     | `/home/node/app/conf-template`            |
-| `factoidAddressMonitord.volumes.csv.mountPath`     | csv volume mount path                                                        | `/home/node/app/csv`                      |
-| `factoidAddressMonitord.volumes.db.mountPath`      | db volume mount path                                                         | `/home/node/app/db`                       |
-| `persistentVolumeClaim.size`                       | Persistent Volume size                                                       | `10Gi`                                    |
-| `statefulset.replicas`                             | desired number of factoid-address-monitord replicas                          | `1`                                       |
-| `statefulset.restartPolicy`                        | factoid-address-monitord container restart policy                            | `Always`                                  |
-| `storageClass.parameters.type`                     | type of storage                                                              | `pd-standard`                             |
-| `storageClass.parameters.replication-type`         | persistent disk replication type                                             | `regional-pd`                             |
-| `storageClass.provisioner`                         | factoid-address-monitord container restart policy                            | `kubernetes.io/gce-pd`                    |
+| Parameter                                          | Description                                                                    | Default                                   |
+| -------------------------------------------------- | ------------------------------------------------------------------------------ | ----------------------------------------- |
+| `factoidAddressMonitord.config`                    | [configurations](##configurations) to the factoid-address-monitord config file | `{}`                                      |
+| `factoidAddressMonitord.env.bitcoinTaxSecretName`  |                                                                                |                                           |
+| `factoidAddressMonitord.image`                     | factoid-address-monitord container image repository                            | `bedrocksolutions/factoidAddressMonitord` |
+| `factoidAddressMonitord.imageTag`                  | factoid-address-monitord container image tag                                   | `latest`                                  |
+| `factoidAddressMonitord.pullPolicy`                | factoid-address-monitord container image pull policy                           | `Always`                                  |
+| `factoidAddressMonitord.resources.limits.cpu`      | factoid-address-monitord pod cpu limit                                         | `100m`                                    |
+| `factoidAddressMonitord.resources.limits.memory`   | factoid-address-monitord pod memory limit                                      | `256Mi`                                   |
+| `factoidAddressMonitord.resources.requests.cpu`    | factoid-address-monitord pod cpu request                                       | `50m`                                     |
+| `factoidAddressMonitord.resources.requests.memory` | factoid-address-monitord pod memory request                                    | `96Mi`                                    |
+| `factoidAddressMonitord.volumes.config.mountPath`  | config volume mount path                                                       | `/home/node/app/conf-template`            |
+| `factoidAddressMonitord.volumes.csv.mountPath`     | csv volume mount path                                                          | `/home/node/app/csv`                      |
+| `factoidAddressMonitord.volumes.db.mountPath`      | db volume mount path                                                           | `/home/node/app/db`                       |
+| `persistentVolumeClaim.size`                       | Persistent Volume size                                                         | `10Gi`                                    |
+| `statefulset.replicas`                             | desired number of factoid-address-monitord replicas                            | `1`                                       |
+| `statefulset.restartPolicy`                        | factoid-address-monitord container restart policy                              | `Always`                                  |
+| `storageClass.parameters.type`                     | type of storage                                                                | `pd-standard`                             |
+| `storageClass.parameters.replication-type`         | persistent disk replication type                                               | `regional-pd`                             |
+| `storageClass.provisioner`                         | factoid-address-monitord container restart policy                              | `kubernetes.io/gce-pd`                    |
 
-### configuration
+### configurations
 
 Valid configuration file keys:
 
