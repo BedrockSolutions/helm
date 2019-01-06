@@ -42,18 +42,18 @@ The command removes all the Kubernetes components associated with the chart and 
 
 The following table lists the configurable parameters of the tfa-bot chart and their default values.
 
-| Parameter                          | Description                                            | Default                    |
-| ---------------------------------- | ------------------------------------------------------ | -------------------------- |
-| `tfaBot.config`                    | tfa-bot configuration [configuration](#configurations) | `{}`                       |
-| `tfaBot.image`                     | tfa-bot container image repository                     | `bedrocksolutions/tfa-bot` |
-| `tfaBot.imageTag`                  | tfa-bot container image tag                            | `latest`                   |
-| `tfaBot.pullPolicy`                | tfa-bot container image pull policy                    | `Always`                   |
-| `tfaBot.resources.limits.cpu`      | tfa-bot pod cpu limit                                  | `100m`                     |
-| `tfaBot.resources.limits.memory`   | tfa-bot pod memory limit                               | `256Mi`                    |
-| `tfaBot.resources.requests.cpu`    | tfa-bot pod cpu request                                | `50m`                      |
-| `tfaBot.resources.requests.memory` | tfa-bot pod memory request                             | `96Mi`                     |
-| `deployment.replicas`              | desired number of tfa-bot replicas                     | `1`                        |
-| `deployment.restartPolicy`         | tfa-bot pod restart policy                             | `Always`                   |
+| Parameter                          | Description                              | Default                    |
+| ---------------------------------- | ---------------------------------------- | -------------------------- |
+| `tfaBot.config`                    | tfa-bot [configuration](#configurations) | `{}`                       |
+| `tfaBot.image`                     | tfa-bot container image repository       | `bedrocksolutions/tfa-bot` |
+| `tfaBot.imageTag`                  | tfa-bot container image tag              | `latest`                   |
+| `tfaBot.pullPolicy`                | tfa-bot container image pull policy      | `Always`                   |
+| `tfaBot.resources.limits.cpu`      | tfa-bot pod cpu limit                    | `100m`                     |
+| `tfaBot.resources.limits.memory`   | tfa-bot pod memory limit                 | `256Mi`                    |
+| `tfaBot.resources.requests.cpu`    | tfa-bot pod cpu request                  | `50m`                      |
+| `tfaBot.resources.requests.memory` | tfa-bot pod memory request               | `96Mi`                     |
+| `deployment.replicas`              | desired number of tfa-bot replicas       | `1`                        |
+| `deployment.restartPolicy`         | tfa-bot pod restart policy               | `Always`                   |
 
 ### configurations
 
