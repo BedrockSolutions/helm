@@ -1,6 +1,6 @@
 factomWalletd:
   # Docker image repository
-  image: bedrocksolutions/factom-walletd
+  image: factominc/factom-walletd
 
   # Docker image tag
   imageTag: latest
