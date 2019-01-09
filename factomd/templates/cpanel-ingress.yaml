@@ -1,4 +1,5 @@
-{{- if eq .Values.factomd.ports.cpanel.loadBalancerType "http" -}}
+{{- $portCfg := .Values.ports.cpanel -}}
+{{- if eq $portCfg.loadBalancerType "http" -}}
 {{- range $replica := until (.Values.statefulSet.replicas | int) -}}
 ---
 apiVersion: extensions/v1beta1
@@ -13,7 +14,7 @@ metadata:
 spec:
   backend:
     serviceName: {{ include "app.fullname" $ }}-cpanel-svc-{{ $replica }}
-    servicePort: {{ include "factomd.configValue" (dict "factomd" $.Values.factomd "key" "controlPanelPort") }}
+    servicePort: {{ $portCfg.servicePort }}
 ...
 {{ end -}}
 {{- end -}}

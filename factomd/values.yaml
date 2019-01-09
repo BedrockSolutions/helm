@@ -34,24 +34,6 @@ factomd:
   #   specialPeers
   config: {}
 
-  # Docker container-related configuration
-  container:
-
-    # Docker image
-    image: bedrocksolutions/factomd
-
-    # Docker image tag
-    imageTag: latest
-
-    # Container resource limits and requests
-    resources:
-      limits:
-        cpu: 1000m
-        memory: 4Gi
-      requests:
-        cpu: 500m
-        memory: 2Gi
-
   # Database-related configuration
   database:
 
@@ -61,30 +43,26 @@ factomd:
     # The type of the persistent disk. Value is 'standard' or 'ssd'
     diskType: ssd
 
+  # Docker image
+  image: bedrocksolutions/factomd
+
+  # Docker image tag
+  imageTag: latest
+
   # Enable if server is currently an authority server
   isAuthority: false
 
   # The Factom network to join. Either 'mainnet' or 'testnet'
   network: mainnet
 
-  # Port-related configuration
-  ports:
-
-    api:
-      # Set the load balancer type. Allowed values are 'http', 'tcp', and 'none'
-      loadBalancerType: none
-
-      # Enable to create an internal load balancer
-      # Only works with "loadBalancerType: tcp"
-      isInternal: false
-
-    cpanel:
-      # Set the load balancer type. Allowed values are 'http', 'tcp', and 'none'
-      loadBalancerType: none
-
-      # Enable to create an internal load balancer
-      # Only works with "loadBalancerType: tcp"
-      isInternal: false
+  # Container resource limits and requests
+  resources:
+    limits:
+      cpu: 1000m
+      memory: 4Gi
+    requests:
+      cpu: 500m
+      memory: 2Gi
 
   # Private variable containing argument-related configuration.
   # No touchy...
@@ -110,14 +88,11 @@ factomd:
   _config:
     defaults:
       global:
-        apiPort: 8088
         changeAcksHeight: 0
-        controlPanelPort: 8090
         controlPanelSetting: readonly
         identityChainID: FA1E000000000000000000000000000000000000000000000000000000000000
         localServerPrivateKey: "${LOCAL_SERVER_PRIVATE_KEY}"
       mainnet:
-        p2pPort: 8108
         specialPeers: "\"52.17.183.121:8108 52.17.153.126:8108 52.19.117.149:8108 52.18.72.212:8108\""
         network: MAIN
       testnet:
@@ -126,14 +101,11 @@ factomd:
         directoryBlockInSeconds: 600
         exchangeRateAuthorityPublicKey: 58cfccaa48a101742845df3cecde6a9f38037030842d34d0eaa76867904705ae
         network: CUSTOM
-        p2pPort: 8110
         seedUrl: https://raw.githubusercontent.com/FactomProject/communitytestnet/master/seeds/testnetseeds.txt
 
     names:
       global:
-        apiPort: PortNumber
         changeAcksHeight: ChangeAcksHeight
-        controlPanelPort: ControlPanelPort
         controlPanelSetting: ControlPanelSetting
         directoryBlockInSeconds: DirectoryBlockInSeconds
         exchangeRateAuthorityPublicKey: ExchangeRateAuthorityPublicKey
@@ -142,29 +114,82 @@ factomd:
         localServerPublicKey: LocalServerPublicKey
         network: Network
       mainnet:
-        p2pPort: MainNetworkPort
         seedUrl: MainSeedURL
         specialPeers: MainSpecialPeers
       testnet:
         bootstrapIdentity: CustomBootstrapIdentity
         bootstrapKey: CustomBootstrapKey
-        p2pPort: CustomNetworkPort
         seedUrl: CustomSeedURL
         specialPeers: CustomSpecialPeers
+
+# Nginx API proxy configuration
+factomdApiProxy:
+
+  # Docker image
+  image: bedrocksolutions/factomd-api-proxy
+
+  # Docker image tag
+  imageTag: latest
+
+  # Container resource limits and requests
+  resources:
+    limits:
+      cpu: 50m
+      memory: 50Mi
+    requests:
+      cpu: 25m
+      memory: 25Mi
+
+# Port-related configuration
+ports:
+
+  api:
+    # Set to enable CORS on the API port. Possible values include:
+    #
+    # "": Empty string disables CORS
+    #
+    # "*": An asterisk enables CORS for any origin.
+    #
+    # "PERL-compatible regular expression": A regex used to test the client's 'Origin' header.
+    # A match will enable CORS for the matching origin.
+    #
+    #   Example: corsAllowedOrigins: "^http://www.foo.com$"
+    #
+    corsAllowedOrigin: ""
+
+    # Set the load balancer type. Allowed values are 'http', 'tcp', and 'none'
+    loadBalancerType: none
+
+    # Enable to create an internal load balancer
+    # Only works with "loadBalancerType: tcp"
+    isInternal: false
+
+    # The service listen port. Shouldn't need to change
+    servicePort: 80
+
+  cpanel:
+    # Set the load balancer type. Allowed values are 'http', 'tcp', and 'none'
+    loadBalancerType: none
+
+    # Enable to create an internal load balancer
+    # Only works with "loadBalancerType: tcp"
+    isInternal: false
+
+    # The service listen port. Shouldn't need to change
+    servicePort: 80
+
 
 # Prometheus to Stackdriver bridge configuration
 prometheusToSD:
 
-  container:
-
-    # Container resource limits and requests
-    resources:
-      limits:
-        cpu: 50m
-        memory: 50Mi
-      requests:
-        cpu: 25m
-        memory: 25Mi
+  # Container resource limits and requests
+  resources:
+    limits:
+      cpu: 50m
+      memory: 50Mi
+    requests:
+      cpu: 25m
+      memory: 25Mi
 
 statefulSet:
   replicas: 1
