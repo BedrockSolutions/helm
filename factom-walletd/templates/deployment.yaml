@@ -4,12 +4,12 @@ kind: Deployment
 metadata:
   labels:
     app: {{ template "app.name" . }}
-    chart: {{ template "app.chart" .}}
-    heritage: {{ .Release.Service }}
+    chart: {{ template "app.chart" . }}
     release: {{ .Release.Name }}
-  name: "{{ .Release.Name }}"
+    heritage: {{ .Release.Service }}
+  name: {{ template "app.fullname" . }}
 spec:
-  replicas: {{ .Values.replicas }}
+  replicas: {{ .Values.deployment.replicas }}
   selector:
     matchLabels:
       app: {{ template "app.name" . }}
@@ -19,33 +19,26 @@ spec:
         app: {{ template "app.name" . }}
     spec:
       containers:
-      - name: {{ template "app.name" . }}
-      {{- with .Values.container }}
-        image: {{ .image }}:{{ .imagetag }}
-        ports:
-        - containerPort: 8089
-          name: factom-walletd
-          protocol: TCP
-        livenessProbe:
-          tcpSocket:
-            port: factom-walletd
-            initialDelaySeconds: 120
-            periodSeconds: 30
-            timeoutSeconds: 5
-        readinessProbe:
-          tcpSocket:
-            port: factom-walletd
-            initialDelaySeconds: 100
-            periodSeconds: 30
-            timeoutSeconds: 5
-        resources:
-          {{- with .resources}}
-          limits:
-            cpu: {{.cpu}}
-            memory: {{.memory}}
-          requests:
-            cpu: {{.cpu}}
-            memory: {{.memory}}
+        - name: {{ template "app.name" . }}
+          {{- with .Values.factomWalletd }}
+          image: {{ .image }}:{{ .imageTag }}
+          ports:
+          - containerPort: 8089
+            name: factom-walletd
+            protocol: TCP
+          livenessProbe:
+            tcpSocket:
+              port: factom-walletd
+              initialDelaySeconds: 120
+              periodSeconds: 30
+              timeoutSeconds: 5
+          readinessProbe:
+            tcpSocket:
+              port: factom-walletd
+              initialDelaySeconds: 100
+              periodSeconds: 30
+              timeoutSeconds: 5
+          resources:
+{{ .resources | toYaml | indent 12 }}
           {{- end}}
-      {{- end}}
 ...

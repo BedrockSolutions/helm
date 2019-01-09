@@ -20,10 +20,10 @@ spec:
     spec:
       containers:
         - name: {{ template "app.name" . }}
+          {{- with .Values.tfaBot}}
           env:
             - name: BOTURL
-              value: {{ .Values.tfaBot.botUrl | quote }}
-          {{- with .Values.container}}
+              value: {{ .config.botUrl | quote }}
           image: {{ .image }}:{{ .imageTag }}
           imagePullPolicy: {{ .pullPolicy }}
           livenessProbe:
