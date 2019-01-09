@@ -1,7 +1,13 @@
 ---
 {{- define "factomd.conf" -}}
-{{- $f := .Values.factomd }}
+{{- $f := .Values.factomd -}}
+{{- $p := .Values.ports }}
 [app]
+; Ports
+PortNumber=1111
+ControlPanelPort=2222
+{{ eq $f.network "mainnet" | ternary "MainNetworkPort" "CustomNetworkPort" }}=3333
+
 {{ $mergedNames := merge (index $f._config.names $f.network) $f._config.names.global -}}
 {{- $mergedValues := merge $f.config (index $f._config.defaults $f.network) $f._config.defaults.global -}}
 {{- range $key, $configName := $mergedNames -}}

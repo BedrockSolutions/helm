@@ -1,4 +1,4 @@
-{{- $portCfg := .Values.factomd.ports.cpanel -}}
+{{- $portCfg := .Values.ports.cpanel -}}
 {{- range $replica := until (.Values.statefulSet.replicas | int) -}}
 ---
 apiVersion: v1
@@ -17,7 +17,7 @@ metadata:
     heritage: {{ $.Release.Service }}
 spec:
   ports:
-  - port: {{ include "factomd.configValue" (dict "factomd" $.Values.factomd "key" "controlPanelPort") }}
+  - port: {{ $portCfg.servicePort }}
     protocol: TCP
     targetPort: cpanel
   selector:

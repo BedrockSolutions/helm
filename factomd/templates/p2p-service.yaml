@@ -1,3 +1,5 @@
+{{- $f := .Values.factomd -}}
+{{- $portCfg := .Values.ports.p2p -}}
 {{- range $replica := until (.Values.statefulSet.replicas | int) -}}
 ---
 apiVersion: v1
@@ -11,7 +13,7 @@ metadata:
     heritage: {{ $.Release.Service }}
 spec:
   ports:
-  - port: {{ include "factomd.configValue" (dict "factomd" $.Values.factomd "key" "p2pPort") }}
+  - port: {{ eq $f.network "mainnet" | ternary 8108 8110 }}
     protocol: TCP
     targetPort: p2p
   selector:

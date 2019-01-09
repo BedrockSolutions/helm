@@ -1,4 +1,5 @@
-{{- if eq .Values.factomd.ports.api.loadBalancerType "http" -}}
+{{- $portCfg := .Values.ports.api -}}
+{{- if eq $portCfg.loadBalancerType "http" -}}
 ---
 apiVersion: extensions/v1beta1
 kind: Ingress
@@ -12,6 +13,6 @@ metadata:
 spec:
   backend:
     serviceName: {{ include "app.fullname" . }}-api-svc
-    servicePort: {{ include "factomd.configValue" (dict "factomd" $.Values.factomd "key" "apiPort") }}
+    servicePort: {{ $portCfg.servicePort }}
 ...
 {{- end -}}
