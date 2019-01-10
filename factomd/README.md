@@ -64,17 +64,17 @@ The following table lists the configurable parameters of the factomd chart and t
 | `prometheusToSD.resources.requests.memory`   | factomd pod memory request                                                                                                   | `2Gi`                                                                                                                                                                                                                                                                                                                                                                                                                                    |
 | `statefulSet.replicas`                       | desired number of factomd replicas                                                                                           | `1`                                                                                                                                                                                                                                                                                                                                                                                                                                      |
 
-### Arguments
+### Command Line Arguments
 
 Arguments are passed using the `factomd.args` key.
 
-Valid arguments passed to the factomd binary:
+Valid arguments:
 
-| Argument | Description | Default | Network |
-| - | - | - |
-| customNet    | sets the `customnet` value | fct_community_test | testnet |
-| faultTimeout | sets the `faulttimeout` time in seconds | 120 | both  |
-| startDelay   | set the `startdelay` time in seconds | 600 | both  |
+| Key | Argument | Default | Notes |
+| - | - | - | - |
+| customNet | `customnet` | fct_community_test | Testnet only |
+| faultTimeout | `faulttimeout` | 120 |
+| startDelay   | `startdelay` | 600 |
 
 #### Example
 
@@ -83,7 +83,6 @@ factomd:
   args:
     faultTimeout: 60
     startDelay: 300
-
 ```
 
 ### Configuration parameters
@@ -106,3 +105,12 @@ Valid configuration file keys:
 | `network` | `Network` | MAIN | `Network` | CUSTOM |
 | `seedUrl` | `MainSeedURL` | none | `CustomSeedURL` | https://raw.githubusercontent.com/FactomProject/communitytestnet/master/seeds/testnetseeds.txt |
 | `specialPeers` | `MainSpecialPeers` | "52.17.183.121:8108 52.17.153.126:8108 52.19.117.149:8108 52.18.72.212:8108" | `CustomSpecialPeers`| none |
+
+#### Example
+
+```yaml
+factomd:
+  config:
+    identityChainID: XXXXX
+    localServerPublicKey: YYYYY
+```
