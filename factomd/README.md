@@ -98,6 +98,8 @@ Valid configuration file keys:
 | `bootstrapKey` | N/A | N/A | | `CustomBootstrapKey` | 58cfccaa48a101742845df3cecde6a9f38037030842d34d0eaa76867904705ae |
 | `changeAcksHeight` | `ChangeAcksHeight` | 0 | `ChangeAcksHeight` | 0 | 
 | `controlPanelPortSetting` | `ControlPanelPortSetting` | readonly | `ControlPanelPortSetting` | readonly |
+
+
 | `directoryBlockInSeconds` | `DirectoryBlockInSeconds` | none | `DirectoryBlockInSeconds` | 600 |
 | `exchangeRateAuthorityPublicKey` | `ExchangeRateAuthorityPublicKey` | none | `ExchangeRateAuthorityPublicKey` | 58cfccaa48a101742845df3cecde6a9f38037030842d34d0eaa76867904705ae |
 | `identityChainID` | `IdentityChainID` | none | `IdentityChainID` | none |
