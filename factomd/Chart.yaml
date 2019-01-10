@@ -10,4 +10,4 @@ sources:
   - https://github.com/BedrockSolutions/helm/tree/master/factomd
   - https://github.com/BedrockSolutions/dockerfile/tree/master/factomd
   - https://github.com/FactomProject/factomd
-version: 0.0.1
+version: 0.1.0
