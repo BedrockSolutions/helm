@@ -70,19 +70,18 @@ Arguments are passed using the `factomd.args` key.
 
 Valid arguments passed to the factomd binary:
 
-| Argument     | Description | Network |
-| ------------ | ----------- | ------- |
-| customNet    |             | testnet |
-| faultTimeout |             | global  |
-| startDelay   |             | global  |
-
-Note: "global" network means the argument is valid for both mainnet and testnet
+| Argument | Description | Default | Network |
+| - | - | - |
+| customNet    | sets the `customnet` value | fct_community_test | testnet |
+| faultTimeout | sets the `faulttimeout` time in seconds | 120 | both  |
+| startDelay   | set the `startdelay` time in seconds | 600 | both  |
 
 #### Example
 
 ```yaml
 factomd:
   args:
+    faultTimeout: 60
     startDelay: 300
 
 ```
@@ -93,18 +92,17 @@ Configuration parameters are passed using the `factomd.config` key
 
 Valid configuration file keys:
 
-| Configuration                    | Description                         | Network   |
-| -------------------------------- | ----------------------------------- | --------- |
-| `bootstrapIdentity`              |                                     | `testnet` |
-| `bootstrapKey`                   |                                     | `testnet` |
-| `changeAcksHeight`               |                                     | `global`  |
-| `controlPanelPortSetting`        |                                     | `global`  |
-| `directoryBlockInSeconds`        |                                     | `global`  |
-| `exchangeRateAuthorityPublicKey` |                                     | `global`  |
-| `identityChainID`                |                                     | `global`  |
-| `localServerPublicKey`           |                                     | `global`  |
-| `network`                        |                                     | `global`  |
-| `seedUrl`                        |                                     | `global`  |
-| `specialPeers`                   |                                     | `global`  |
-
-Note: "global" network means the confguration is valid for both mainnet and testnet
+| Configuration | Description | Default | Network |
+| - | - | - | - |
+| `bootstrapIdentity` | sets the `CustomBootstrapIdentity` value | 8888882f5002ff95fce15d20ecb7e18ae6cc4d5849b372985d856b56e492ae0f | `testnet` |
+| `bootstrapKey` | sets the `CustomBootstrapKey` value | 58cfccaa48a101742845df3cecde6a9f38037030842d34d0eaa76867904705ae | `testnet` |
+| `changeAcksHeight` | sets the `ChangeAcksHeight` value | 0 | `both` |
+| `controlPanelPortSetting` | sets the `ControlPanelPortSetting` value | readonly | `both` |
+| `directoryBlockInSeconds` | sets the `DirectoryBlockInSeconds` value | mainnet: none; testnet: 600 | `both` |
+| `exchangeRateAuthorityPublicKey` | sets the `ExchangeRateAuthorityPublicKey` value | mainnet: none; testnet: 58cfccaa48a101742845df3cecde6a9f38037030842d34d0eaa76867904705ae | `both` |
+| `identityChainID` | sets the `IdentityChainID` value | none | `both` |
+| `localServerPrivateKey` | sets the `LocalServerPrivateKey` value. A secret should be used instead | ${LOCAL_SERVER_PRIVATE_KEY} | `both` |
+| `localServerPublicKey` | sets the `LocalServerPublicKey` value | none | `both` |
+| `network` | sets the `Network` value | mainnet: MAIN; testnet: CUSTOM | `both` |
+| `seedUrl` | sets the `MainSeedURL` (mainnet) or `CustomSeedURL` (testnet) value | mainnet: none; testnet: https://raw.githubusercontent.com/FactomProject/communitytestnet/master/seeds/testnetseeds.txt | `both` |
+| `specialPeers` | sets the `MainSpecialPeers` (mainnet) or `CustomSpecialPeers` (testnet) value | mainnet: "52.17.183.121:8108 52.17.153.126:8108 52.19.117.149:8108 52.18.72.212:8108" | `both`  |
