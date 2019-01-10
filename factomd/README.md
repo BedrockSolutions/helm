@@ -95,11 +95,9 @@ Valid configuration file keys:
 | Key | Mainnet Config Param | Mainnet Default | Testnet Config Param | Testnet Default |
 | - | - | - | - | - |
 | `bootstrapIdentity` | N/A | N/A | `CustomBootstrapIdentity` | 8888882f5002ff95fce15d20ecb7e18ae6cc4d5849b372985d856b56e492ae0f |
-| `bootstrapKey` | N/A | N/A | | `CustomBootstrapKey` | 58cfccaa48a101742845df3cecde6a9f38037030842d34d0eaa76867904705ae |
+| `bootstrapKey` | N/A | N/A | `CustomBootstrapKey` | 58cfccaa48a101742845df3cecde6a9f38037030842d34d0eaa76867904705ae |
 | `changeAcksHeight` | `ChangeAcksHeight` | 0 | `ChangeAcksHeight` | 0 | 
 | `controlPanelPortSetting` | `ControlPanelPortSetting` | readonly | `ControlPanelPortSetting` | readonly |
-
-
 | `directoryBlockInSeconds` | `DirectoryBlockInSeconds` | none | `DirectoryBlockInSeconds` | 600 |
 | `exchangeRateAuthorityPublicKey` | `ExchangeRateAuthorityPublicKey` | none | `ExchangeRateAuthorityPublicKey` | 58cfccaa48a101742845df3cecde6a9f38037030842d34d0eaa76867904705ae |
 | `identityChainID` | `IdentityChainID` | none | `IdentityChainID` | none |
