@@ -92,17 +92,17 @@ Configuration parameters are passed using the `factomd.config` key
 
 Valid configuration file keys:
 
-| Configuration | Description | Default | Network |
+| Key | Mainnet Config Param | Mainnet Default | Testnet Config Param | Testnet Default |
 | - | - | - | - |
-| `bootstrapIdentity` | sets the `CustomBootstrapIdentity` value | 8888882f5002ff95fce15d20ecb7e18ae6cc4d5849b372985d856b56e492ae0f | `testnet` |
-| `bootstrapKey` | sets the `CustomBootstrapKey` value | 58cfccaa48a101742845df3cecde6a9f38037030842d34d0eaa76867904705ae | `testnet` |
-| `changeAcksHeight` | sets the `ChangeAcksHeight` value | 0 | `both` |
-| `controlPanelPortSetting` | sets the `ControlPanelPortSetting` value | readonly | `both` |
-| `directoryBlockInSeconds` | sets the `DirectoryBlockInSeconds` value | mainnet: none; testnet: 600 | `both` |
-| `exchangeRateAuthorityPublicKey` | sets the `ExchangeRateAuthorityPublicKey` value | mainnet: none; testnet: 58cfccaa48a101742845df3cecde6a9f38037030842d34d0eaa76867904705ae | `both` |
-| `identityChainID` | sets the `IdentityChainID` value | none | `both` |
-| `localServerPrivateKey` | sets the `LocalServerPrivateKey` value. A secret should be used instead | ${LOCAL_SERVER_PRIVATE_KEY} | `both` |
-| `localServerPublicKey` | sets the `LocalServerPublicKey` value | none | `both` |
-| `network` | sets the `Network` value | mainnet: MAIN; testnet: CUSTOM | `both` |
-| `seedUrl` | sets the `MainSeedURL` (mainnet) or `CustomSeedURL` (testnet) value | mainnet: none; testnet: https://raw.githubusercontent.com/FactomProject/communitytestnet/master/seeds/testnetseeds.txt | `both` |
-| `specialPeers` | sets the `MainSpecialPeers` (mainnet) or `CustomSpecialPeers` (testnet) value | mainnet: "52.17.183.121:8108 52.17.153.126:8108 52.19.117.149:8108 52.18.72.212:8108" | `both`  |
+| `bootstrapIdentity` | N/A | N/A | `CustomBootstrapIdentity` | 8888882f5002ff95fce15d20ecb7e18ae6cc4d5849b372985d856b56e492ae0f |
+| `bootstrapKey` | N/A | N/A | | `CustomBootstrapKey` | 58cfccaa48a101742845df3cecde6a9f38037030842d34d0eaa76867904705ae |
+| `changeAcksHeight` | `ChangeAcksHeight` | 0 | `ChangeAcksHeight` | 0 | 
+| `controlPanelPortSetting` | `ControlPanelPortSetting` | readonly | `ControlPanelPortSetting` | readonly |
+| `directoryBlockInSeconds` | `DirectoryBlockInSeconds` | none | `DirectoryBlockInSeconds` | 600 |
+| `exchangeRateAuthorityPublicKey` | `ExchangeRateAuthorityPublicKey` | none | `ExchangeRateAuthorityPublicKey` | 58cfccaa48a101742845df3cecde6a9f38037030842d34d0eaa76867904705ae |
+| `identityChainID` | `IdentityChainID` | none | `IdentityChainID` | none |
+| `localServerPrivateKey` | `LocalServerPrivateKey` | ${LOCAL_SERVER_PRIVATE_KEY} | `LocalServerPrivateKey` | ${LOCAL_SERVER_PRIVATE_KEY} |
+| `localServerPublicKey` | `LocalServerPublicKey` | none | `LocalServerPublicKey` | none |
+| `network` | `Network` | MAIN | `Network` | CUSTOM |
+| `seedUrl` | `MainSeedURL` | none | `CustomSeedURL` | https://raw.githubusercontent.com/FactomProject/communitytestnet/master/seeds/testnetseeds.txt |
+| `specialPeers` | `MainSpecialPeers` | "52.17.183.121:8108 52.17.153.126:8108 52.19.117.149:8108 52.18.72.212:8108" | `CustomSpecialPeers`| none |
