@@ -68,7 +68,7 @@ The following table lists the configurable parameters of the factomd chart and t
 
 Arguments are passed using the `factomd.args` key.
 
-Valid arguments:
+Valid argument keys:
 
 | Key | Argument | Default | Notes |
 | - | - | - | - |
