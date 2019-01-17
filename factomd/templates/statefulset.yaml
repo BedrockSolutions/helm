@@ -78,8 +78,8 @@ spec:
         env:
         - name: ALLOW_ORIGIN
           value: {{ $p.api.corsAllowedOrigin | quote }}
-        - name: API_PORT
-          value: "1111"
+        - name: API_URL
+          value: "http://localhost:1111"
         - name: PORT
           value: "1112"
         image: {{ .Values.factomdApiProxy.image }}:{{ .Values.factomdApiProxy.imageTag }}
