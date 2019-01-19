@@ -134,11 +134,13 @@ spec:
           name: {{ include "app.fullname" . }}-cfg
           items:
           - key: factomd.conf
+            path: factomd.conf
       - name: factomd-api-proxy-config
         configMap:
           name: {{ include "app.fullname" . }}-cfg
           items:
           - key: factomd-api-proxy.conf
+            path: values.yaml
   volumeClaimTemplates:
   - metadata:
       name: factomd-database
