@@ -10,4 +10,7 @@ metadata:
     heritage: {{ .Release.Service }}
 data:
   "factomd.conf": |-
-{{- include "factomd.conf" . | indent 4 -}}
+{{- include "factomd.conf" . | indent 4 }}
+
+  "factomd-api-proxy.conf": |-
+{{- include "factomd-api-proxy.conf" . | indent 4 -}}

@@ -102,6 +102,9 @@ spec:
             timeoutSeconds: 5
         resources:
 {{ toYaml .Values.factomdApiProxy.resources | indent 10 }}
+        volumeMounts:
+        - name: factomd-api-proxy-config
+          mountPath: /home/app/values/configmap
 {{- if eq .Values.cloudProvider "gcp" }}
       - name: prometheus-to-sd
         command:
@@ -129,6 +132,13 @@ spec:
       - name: factomd-config
         configMap:
           name: {{ include "app.fullname" . }}-cfg
+          items:
+          - key: factomd.conf
+      - name: factomd-api-proxy-config
+        configMap:
+          name: {{ include "app.fullname" . }}-cfg
+          items:
+          - key: factomd-api-proxy.conf
   volumeClaimTemplates:
   - metadata:
       name: factomd-database
