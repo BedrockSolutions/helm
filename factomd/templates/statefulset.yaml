@@ -75,13 +75,6 @@ spec:
         - name: factomd-database
           mountPath: /home/factomd/.factom/m2
       - name: factomd-api-proxy
-        env:
-        - name: ALLOW_ORIGIN
-          value: {{ $p.api.corsAllowedOrigin | quote }}
-        - name: API_URL
-          value: "http://localhost:1111"
-        - name: PORT
-          value: "1112"
         image: {{ .Values.factomdApiProxy.image }}:{{ .Values.factomdApiProxy.imageTag }}
         imagePullPolicy: Always
         livenessProbe:
