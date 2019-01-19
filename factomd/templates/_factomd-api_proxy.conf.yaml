@@ -3,7 +3,7 @@
 {{- $f := .Values.factomd -}}
 {{- $p := .Values.ports -}}
 
-corsAllowedOrigin: {{ $p.api.corsAllowedOrigin | quote }}
+corsAllowOrigin: {{ $p.api.corsAllowOrigin | quote }}
 
 factomdUrl: http://localhost:1111
 

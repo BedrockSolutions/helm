@@ -147,9 +147,9 @@ ports:
     # "PERL-compatible regular expression": A regex used to test the client's 'Origin' header.
     # A match will enable CORS for the matching origin.
     #
-    #   Example: corsAllowedOrigins: "^http://www.foo.com$"
+    #   Example: corsAllowOrigin: "^http://www.foo.com$"
     #
-    corsAllowedOrigin: ""
+    corsAllowOrigin: ""
 
     # Set the load balancer type. Allowed values are 'http', 'tcp', and 'none'
     loadBalancerType: none
