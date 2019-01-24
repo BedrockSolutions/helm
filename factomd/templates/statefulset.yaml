@@ -75,33 +75,31 @@ spec:
         - name: factomd-database
           mountPath: /home/factomd/.factom/m2
       - name: factomd-api-proxy
-        env:
-        - name: ALLOW_ORIGIN
-          value: {{ $p.api.corsAllowedOrigin | quote }}
-        - name: API_URL
-          value: "http://localhost:1111"
-        - name: PORT
-          value: "1112"
         image: {{ .Values.factomdApiProxy.image }}:{{ .Values.factomdApiProxy.imageTag }}
         imagePullPolicy: Always
         livenessProbe:
-          httpGet:
-            path: /
-            port: 1112
-            initialDelaySeconds: 10
-            timeoutSeconds: 5
+          exec:
+            command:
+            - pgrep
+            - openresty
+          initialDelaySeconds: 10
+          timeoutSeconds: 5
         ports:
         - name: api-proxy
           containerPort: 1112
           protocol: TCP
         readinessProbe:
-          httpGet:
-            path: /
-            port: 1112
-            initialDelaySeconds: 5
-            timeoutSeconds: 5
+          exec:
+            command:
+            - pgrep
+            - openresty
+          initialDelaySeconds: 5
+          timeoutSeconds: 5
         resources:
 {{ toYaml .Values.factomdApiProxy.resources | indent 10 }}
+        volumeMounts:
+        - name: factomd-api-proxy-config
+          mountPath: /home/app/values/configmap
 {{- if eq .Values.cloudProvider "gcp" }}
       - name: prometheus-to-sd
         command:
@@ -129,6 +127,15 @@ spec:
       - name: factomd-config
         configMap:
           name: {{ include "app.fullname" . }}-cfg
+          items:
+          - key: factomd.conf
+            path: factomd.conf
+      - name: factomd-api-proxy-config
+        configMap:
+          name: {{ include "app.fullname" . }}-cfg
+          items:
+          - key: factomd-api-proxy.conf
+            path: values.yaml
   volumeClaimTemplates:
   - metadata:
       name: factomd-database
