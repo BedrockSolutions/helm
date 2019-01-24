@@ -78,10 +78,8 @@ spec:
         image: {{ .Values.factomdApiProxy.image }}:{{ .Values.factomdApiProxy.imageTag }}
         imagePullPolicy: Always
         livenessProbe:
-          exec:
-            command:
-            - pgrep
-            - openresty
+          tcpSocket:
+            port: 1112
           initialDelaySeconds: 10
           timeoutSeconds: 5
         ports:
@@ -89,10 +87,8 @@ spec:
           containerPort: 1112
           protocol: TCP
         readinessProbe:
-          exec:
-            command:
-            - pgrep
-            - openresty
+          tcpSocket:
+            port: 1112
           initialDelaySeconds: 5
           timeoutSeconds: 5
         resources:
