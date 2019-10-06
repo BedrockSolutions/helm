@@ -1,0 +1,45 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ template "app.fullname" . }}-configmap
+  labels:
+    app: {{ template "app.name" . }}
+    chart: {{ template "app.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+data:
+  config.yaml: |-
+    {{- with .Values.factoidd }}
+    {{- with .factomd }}
+    factomd:
+        host: {{ .host }}
+        port: {{ .port }}
+        path: {{ .path }}
+        protocol: {{ .protocol }}
+    {{- end }}
+
+    # Get your cryptocompare API credentials at https://min-api.cryptocompare.com/
+    cryptocompare:
+        secret: {{ .cryptocompareSecret}}
+
+    # Get your bitcoin.tax API credentials at https://bitcoin.tax/.
+    # Comment this section out to skip bitcoin.tax
+    bitcoinTax:
+        key: {{ .bitcoinTaxKey}}
+        secret: {{ .bitcoinTaxSecret}}
+
+    # Monitor as many addresses as you like using the format below.
+    addresses:
+    {{- range .addresses }}
+        - address: {{ .address }}
+          currency: {{ .currency }}
+          recordCoinbase: {{ .recordCoinbase }}
+          recordNonCoinbase: {{ .recordNonCoinbase }}
+    {{- end }}
+    {{- with .options }}
+    options:
+        startHeight: {{ .startHeight }}
+        minTime: {{ .minTime }}
+    {{- end }}
+    {{- end }}

@@ -1,0 +1,51 @@
+factoidd:
+  factomd:
+    host: api.factomd.net
+    port: 443
+    path: /v2
+    protocol: https
+  options:
+    # startHeight is the height from which you would like to begin looking for factoid receipts for the first scan.
+    # startHeight defaults to start of M3.
+    startHeight: 212750
+    # minTime is the minimum time in ms to leave between each request. Increase it if you see warnings or dropped requests in the logs.
+    # Cryptocompare rate limits requests and bitcoin.tax will error if requests are made too quickly.
+    minTime: 100
+
+image: factoshi/factoidd
+
+imageTag: v3.0.1
+
+# Docker image pull policy
+pullPolicy: Always
+
+# Container resource limits and requests
+resources:
+  limits:
+    cpu: 100m
+    memory: 256Mi
+  requests:
+    cpu: 50m
+    memory: 96Mi
+
+# Volume mount paths
+volumes:
+  config:
+    mountPath: /home/node/factoidd/config
+  db:
+    mountPath: /home/node/factoidd/db
+
+persistentVolumeClaim:
+  # size is the Persistent Volume Disk Size
+  size: 10Gi
+
+statefulSet:
+  replicas: 1
+  restartPolicy: Always
+
+# https://kubernetes.io/docs/concepts/storage/storage-classes/
+storageClass:
+  parameters:
+    type: pd-standard
+    replication-type: regional-pd
+  provisioner: kubernetes.io/gce-pd
