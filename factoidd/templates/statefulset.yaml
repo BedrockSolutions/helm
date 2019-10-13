@@ -44,7 +44,7 @@ spec:
           resources:
 {{ .resources | toYaml | indent 12 }}
           volumeMounts:
-            - name: config-volume
+            - name: config
               mountPath: {{ .volumes.config.mountPath }}
             - name: db-volume
               mountPath: {{ .volumes.db.mountPath }}
@@ -53,24 +53,10 @@ spec:
       securityContext:
         fsGroup: 1000
       volumes:
-        - name: config-volume
+        - name: config
           configMap:
             name: {{ template "app.fullname" . }}-configmap
   volumeClaimTemplates:
-    - metadata:
-        name: csv-volume
-        labels:
-          app: {{ template "app.name" . }}
-          chart: {{ template "app.chart" . }}
-          release: {{ .Release.Name }}
-          heritage: {{ .Release.Service }}
-      spec:
-        accessModes:
-          - ReadWriteOnce
-        resources:
-          requests:
-            storage: {{ .Values.persistentVolumeClaim.size }}
-        storageClassName: {{ template "app.fullname" . }}-storageclass
     - metadata:
         name: db-volume
         labels:
