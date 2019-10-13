@@ -13,33 +13,33 @@ data:
     {{- with .Values.factoidd }}
     {{- with .factomd }}
     factomd:
-        host: {{ .host }}
-        port: {{ .port }}
-        path: {{ .path }}
-        protocol: {{ .protocol }}
+      host: {{ .host }}
+      port: {{ .port }}
+      path: {{ .path }}
+      protocol: {{ .protocol }}
     {{- end }}
 
     # Get your cryptocompare API credentials at https://min-api.cryptocompare.com/
     cryptocompare:
-        secret: {{ .cryptocompareSecret}}
+      secret: {{ .cryptocompareSecret}}
 
     # Get your bitcoin.tax API credentials at https://bitcoin.tax/.
     # Comment this section out to skip bitcoin.tax
     bitcoinTax:
-        key: {{ .bitcoinTaxKey}}
-        secret: {{ .bitcoinTaxSecret}}
+      key: {{ .bitcoinTaxKey}}
+      secret: {{ .bitcoinTaxSecret}}
 
     # Monitor as many addresses as you like using the format below.
     addresses:
     {{- range .addresses }}
-        - address: {{ .address }}
-          currency: {{ .currency }}
-          recordCoinbase: {{ .recordCoinbase }}
-          recordNonCoinbase: {{ .recordNonCoinbase }}
+      - address: {{ .address }}
+        currency: {{ .currency }}
+        recordCoinbase: {{ .recordCoinbase }}
+        recordNonCoinbase: {{ .recordNonCoinbase }}
     {{- end }}
     {{- with .options }}
     options:
-        startHeight: {{ .startHeight }}
-        minTime: {{ .minTime }}
+      startHeight: {{ .startHeight }}
+      minTime: {{ .minTime }}
     {{- end }}
     {{- end }}
